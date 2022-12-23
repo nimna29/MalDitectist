@@ -40,10 +40,8 @@ from sklearn.datasets import make_classification
 rfc = RandomForestClassifier(max_depth=2, random_state=0)
 randomModel = rfc.fit(x_train, y_train)
 
-### Random Forest - Evaluation on test data
-from sklearn.metrics import f1_score,accuracy_score,plot_confusion_matrix,auc,confusion_matrix
-
-
+### Model Evaluation
+from sklearn.metrics import f1_score,accuracy_score,plot_confusion_matrix,confusion_matrix
 
 ### Accuracy on the train dataset
 rf_y_train_pred = randomModel.predict(x_train)
@@ -57,6 +55,7 @@ f1_score(y_test, rf_y_test_pred)
 
 
 
+## Confusion matrix - Random Forest
 ### Confusion matrix without Normalization
 conf_matrix = confusion_matrix(y_test, rf_y_test_pred)
 
@@ -87,6 +86,57 @@ plt.show()
 
 
 ## Logistic Regression
+from sklearn.linear_model import LogisticRegression
+
+lr = LogisticRegression(random_state=0)
+logModel = lr.fit(x_train, y_train) 
+
+### Model Evaluation
+### Accuracy on the train dataset
+lr_y_train_pred = logModel.predict(x_train)
+accuracy_score(y_train, lr_y_train_pred)
+
+### Accuracy on the test dataset
+lr_y_test_pred = logModel.predict(x_test)
+accuracy_score(y_test, lr_y_test_pred)
+
+f1_score(y_test, lr_y_test_pred)
+
+
+
+## Confusion matrix - Logistic Regression
+### Confusion matrix without Normalization
+lr_conf_matrix = confusion_matrix(y_test, lr_y_test_pred)
+
+### Confusion matrix with Normalization
+lr_conf_matrix_norm = confusion_matrix(y_test, lr_y_test_pred, normalize='true')
+
+
+### Create a figure iwth two subplots
+fig, (ax1, ax2) = plt.subplots(1, 2)
+
+### Plot the 1st confusion matrix 
+plot_confusion_matrix(logModel, x_test, y_test,
+                      cmap=plt.cm.Blues, ax=ax1)
+ax1.set_title("Confusion Matrix")
+
+### Plot the 2nd confusion matrix (Normalized)
+plot_confusion_matrix(logModel, x_test, y_test, 
+                      normalize='true',
+                      cmap=plt.cm.Blues, ax=ax2)
+ax2.set_title("CM (Normalized)")
+
+
+### Add top title and ahow
+plt.suptitle("Confustion Matrices - Logistic Regression")
+plt.subplots_adjust(wspace=0.6)
+plt.show()
+
+
+
+## Neural Network
+
+
 
 
 
