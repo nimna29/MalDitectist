@@ -62,7 +62,6 @@ conf_matrix = confusion_matrix(y_test, rf_y_test_pred)
 ### Confusion matrix with Normalization
 conf_matrix_norm = confusion_matrix(y_test, rf_y_test_pred, normalize='true')
 
-
 ### Create a figure iwth two subplots
 fig, (ax1, ax2) = plt.subplots(1, 2)
 
@@ -76,7 +75,6 @@ plot_confusion_matrix(randomModel, x_test, y_test,
                       normalize='true',
                       cmap=plt.cm.Blues, ax=ax2)
 ax2.set_title("CM (Normalized)")
-
 
 ### Add top title and ahow
 plt.suptitle("Confustion Matrices - Random Forest")
@@ -111,7 +109,6 @@ lr_conf_matrix = confusion_matrix(y_test, lr_y_test_pred)
 ### Confusion matrix with Normalization
 lr_conf_matrix_norm = confusion_matrix(y_test, lr_y_test_pred, normalize='true')
 
-
 ### Create a figure iwth two subplots
 fig, (ax1, ax2) = plt.subplots(1, 2)
 
@@ -126,7 +123,6 @@ plot_confusion_matrix(logModel, x_test, y_test,
                       cmap=plt.cm.Blues, ax=ax2)
 ax2.set_title("CM (Normalized)")
 
-
 ### Add top title and ahow
 plt.suptitle("Confustion Matrices - Logistic Regression")
 plt.subplots_adjust(wspace=0.6)
@@ -134,7 +130,66 @@ plt.show()
 
 
 
-## Neural Network
+## Neural Network - Architecture No:01
+import tensorflow as tf 
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+
+### Define the model architecture
+neuralModelOne = Sequential()
+neuralModelOne.add(Dense(16, input_dim=4, activation= 'relu'))
+neuralModelOne.add(Dense(8, activation= 'relu'))
+neuralModelOne.add(Dense(4, activation= 'relu'))
+neuralModelOne.add(Dense(1, activation= 'sigmoid'))
+
+### Print Model Summary
+neuralModelOne.summary() 
+
+### Compile Model
+neuralModelOne.compile(loss= "binary_crossentropy", optimizer= "rmsprop", metrics=["accuracy"])
+
+### Fit Model
+neuralModelOne.fit(x_train, y_train, epochs=5, batch_size=32)
+
+
+### Model Evaluation
+### Accuracy on the train dataset
+nmo_y_train_pred = neuralModelOne.predict(x_train)
+nmo_y_train_pred = [1 if y>=0.5 else 0 for y in nmo_y_train_pred]
+
+accuracy_score(y_train, nmo_y_train_pred)
+
+### Accuracy on the test dataset
+nmo_y_test_pred = neuralModelOne.predict(x_test)
+nmo_y_test_pred = [1 if y>= 0.5 else 0 for y in nmo_y_test_pred]
+
+accuracy_score(y_test, nmo_y_test_pred)
+
+f1_score(y_test, nmo_y_test_pred)
+
+
+## Confusion matrix - Neural Network - Architecture No:01
+### Confusion matrix without Normalization
+nmo_conf_matrix = confusion_matrix(y_test, nmo_y_test_pred)
+
+### Confusion matrix with Normalization
+nmo_conf_matrix_norm = confusion_matrix(y_test, nmo_y_test_pred, normalize='true')
+
+### Calculate MSE & MAE
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+
+### Calculate the Mean Squared Error (MSE)
+nmo_mse = mean_squared_error(y_test, nmo_y_test_pred)
+
+### Calculate the Mean Absolute Error (MAE)
+nmo_mae = mean_absolute_error(y_test, nmo_y_test_pred)
+
+print("Mean Squard Error:", nmo_mse)
+print("Mean Absolute Error:", nmo_mae)
+
+
+
+## Neural Network - Architecture No:02
 
 
 
