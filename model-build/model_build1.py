@@ -32,7 +32,7 @@ print(x_train.shape,x_test.shape)
 
 
 
-# Model Building
+# Model Building - Supervised Learning
 ## Random Forest
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.datasets import make_classification
