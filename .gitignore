@@ -1,3 +1,6 @@
 .~lock.dataset1.csv#
 test.py
+test2.py
 select-and-compare-data-sets
+# due to large file (this file was created for easy use to model building - data preprocessing code is included in the repo)
+preprocessed_dataset.csv 
