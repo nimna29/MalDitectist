@@ -11,7 +11,7 @@ import seaborn as sns
 dataset = pd.read_csv('../preprocessed_dataset.csv')
 
 # Create dependent & independent variable vectors
-x = dataset.iloc[:, :-1].values #independent - other features (removed file_name & classification_list)
+x = dataset.iloc[:, :-1].values #independent - other features (removed classification_list)
 y = dataset.iloc[:,-1].values #dependent - classification_list (Blacklist = 1 / Whitelist = 0)
 
 # Split the dataset for training & testing
