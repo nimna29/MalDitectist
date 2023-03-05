@@ -89,15 +89,25 @@ def classify_file(file_path):
     if file_features is not None:
         # Scale the features using the same StandardScaler object used to scale the training data
         scaled_features = scaler.transform(file_features.values)
+        
         # Make predictions using the trained model
         prediction = rf_model.predict(scaled_features)
-        if prediction[0] == 1:
+        proba = rf_model.predict_proba(scaled_features)
+        print(f"Prediction: {prediction} ")
+        print(f"Prediction Probability: {proba[0][1]:.2f}.")
+        
+        if prediction[0] == 1 and proba[0][1] >= 0.90:
             print(f"{file_path} is predicted as Malware.")
+            print(f"Probability Rate: {proba[0][1]*100:.2f}%.")
         else:
             print(f"{file_path} is predicted as Legitimate.")
+            print(f"Probability Rate: {proba[0][1]*100:.2f}%.")
     else:
         print(f"Could not extract features for file: {file_path}")
 
 # Call the classify_file function with the file path for analysis
-file_path = '/media/nimna/New Volume1/Malware_Dataset/202275'
+# file_path = '/media/nimna/New Volume1/Malware_Dataset/202275'
+
+# file_path = '/home/nimna/Downloads/Malware/'
+file_path = '/home/nimna/Downloads/Legitimage/Notion Setup 2.0.41.exe'
 classify_file(file_path)
