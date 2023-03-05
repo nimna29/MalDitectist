@@ -9,7 +9,7 @@ import joblib
 import os
 import math
 
-# Load the trained model
+# Load the trained ml model
 rf_model = joblib.load('rf_model.joblib')
 
 # Load the StandardScaler object used to scale the training data
@@ -18,7 +18,7 @@ scaler = joblib.load('scaler.joblib')
 # Define a function to extract the required features from the given file
 def extract_features(file_path):
     try:
-	    # Get the file size
+        # Get the file size
         file_length = os.path.getsize(file_path)
         
         # Calculate the entropy of the file
@@ -98,6 +98,6 @@ def classify_file(file_path):
     else:
         print(f"Could not extract features for file: {file_path}")
 
-# Call the classify_file function with the file path of the file you want to classify
+# Call the classify_file function with the file path for analysis
 file_path = '/media/nimna/New Volume1/Malware_Dataset/202275'
 classify_file(file_path)
