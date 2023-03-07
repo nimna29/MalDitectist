@@ -4,7 +4,6 @@
 
 import pefile
 import pandas as pd
-import numpy as np
 import joblib
 import os
 import math
@@ -103,32 +102,36 @@ def classify_file(file_path):
         proba = rf_model.predict_proba(scaled_features)
         
         # Make predictions using the trained model - NN Model
-        nn_prediction = predic_nn_model_fn(nn_model, scaled_features)
+        nn_prediction = predic_nn_model_fn(nn_model, scaled_features)[0]
+        
+        # Add prediction values to variables
+        rf_pred_value = proba[0][1]
+        nn_pred_value = nn_prediction[0]
         
         
         if rf_prediction[0] == 1 and proba[0][1] >= 0.80:
             if nn_prediction[0] >= 0.7:
                 print(f"{file_path} is predicted as Malware.")
-                print(f"\nProbability Rate of RF Model: {proba[0][1]*100:.2f}%")
-                print(f"Prediction of NN Model: {nn_prediction} ")
+                print(f"\nProbability Rate of RF Model: {rf_pred_value*100:.2f}%")
+                print(f"Prediction of NN Model: {nn_pred_value*100}")
                 
             else:
                 print(f"{file_path} could be a Malware or Legitimate.\
                       \nModels are unable to verify that.\nMostly this is a Malware file.")
-                print(f"\nProbability Rate of RF Model: {proba[0][1]*100:.2f}%")
-                print(f"Prediction of NN Model: {nn_prediction} ")
+                print(f"\nProbability Rate of RF Model: {rf_pred_value*100:.2f}%")
+                print(f"Prediction of NN Model: {nn_pred_value*100}")
                 
         else:
             if nn_prediction[0] >= 0.95 and proba[0][1] >= 0.75:
                 print(f"{file_path} could be a Malware or Legitimate.\
                       \nModels are unable to verify that.\nMostly this is a Malware file.")
-                print(f"\nProbability Rate of RF Model: {proba[0][1]*100:.2f}%")
-                print(f"Prediction of NN Model: {nn_prediction} ")
+                print(f"\nProbability Rate of RF Model: {rf_pred_value*100:.2f}%")
+                print(f"Prediction of NN Model: {nn_pred_value*100}")
                 
             else:
                 print(f"{file_path} is predicted as Legitimate.")
-                print(f"\nProbability Rate of RF Model: {proba[0][1]*100:.2f}%")
-                print(f"Prediction of NN Model: {nn_prediction} ")
+                print(f"\nProbability Rate of RF Model: {rf_pred_value*100:.2f}%")
+                print(f"Prediction of NN Model: {nn_pred_value*100}")
                 
     else:
         print(f"Could not extract features for file: {file_path}")
@@ -138,13 +141,13 @@ def classify_file(file_path):
 # file_path = '/media/nimna/New Volume1/Malware_Dataset/202275'
 
 # # file_path = '/home/nimna/Downloads/Malware/exe/winner-summer-tennis-edward.exe'
-# file_path = '/home/nimna/Downloads/Legitimage/WhatsAppSetup.exe'
+# file_path = '/home/nimna/Downloads/Legitimate/WhatsAppSetup.exe'
 # classify_file(file_path)
 
 
 # Set the directory path
-# directory_path = '/home/nimna/Downloads/Legitimage/exe/'
-directory_path = '/home/nimna/Downloads/Malware/exe/'
+directory_path = '/home/nimna/Downloads/Legitimate/exe/'
+# directory_path = '/home/nimna/Downloads/Malware/exe/'
 
 # Loop through all the files in the directory
 for filename in os.listdir(directory_path):
