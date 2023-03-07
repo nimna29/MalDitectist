@@ -111,26 +111,26 @@ def classify_file(file_path):
         
         if rf_prediction[0] == 1 and proba[0][1] >= 0.80:
             if nn_prediction[0] >= 0.7:
-                print(f"{file_path} is predicted as Malware.")
-                print(f"\nProbability Rate of RF Model: {rf_pred_value*100:.2f}%")
+                print(f"\n{file_path} is predicted as Malware.")
+                print(f"Probability Rate of RF Model: {rf_pred_value*100:.2f}%")
                 print(f"Prediction of NN Model: {nn_pred_value*100}")
                 
             else:
-                print(f"{file_path} could be a Malware or Legitimate.\
+                print(f"\n{file_path} could be a Malware or Legitimate.\
                       \nModels are unable to verify that.\nMostly this is a Malware file.")
-                print(f"\nProbability Rate of RF Model: {rf_pred_value*100:.2f}%")
+                print(f"Probability Rate of RF Model: {rf_pred_value*100:.2f}%")
                 print(f"Prediction of NN Model: {nn_pred_value*100}")
                 
         else:
             if nn_prediction[0] >= 0.95 and proba[0][1] >= 0.75:
-                print(f"{file_path} could be a Malware or Legitimate.\
+                print(f"\n{file_path} could be a Malware or Legitimate.\
                       \nModels are unable to verify that.\nMostly this is a Malware file.")
-                print(f"\nProbability Rate of RF Model: {rf_pred_value*100:.2f}%")
+                print(f"Probability Rate of RF Model: {rf_pred_value*100:.2f}%")
                 print(f"Prediction of NN Model: {nn_pred_value*100}")
                 
             else:
-                print(f"{file_path} is predicted as Legitimate.")
-                print(f"\nProbability Rate of RF Model: {rf_pred_value*100:.2f}%")
+                print(f"\n{file_path} is predicted as Legitimate.")
+                print(f"Probability Rate of RF Model: {rf_pred_value*100:.2f}%")
                 print(f"Prediction of NN Model: {nn_pred_value*100}")
                 
     else:
@@ -146,8 +146,8 @@ def classify_file(file_path):
 
 
 # Set the directory path
-directory_path = '/home/nimna/Downloads/Legitimate/exe/'
-# directory_path = '/home/nimna/Downloads/Malware/exe/'
+# directory_path = '/home/nimna/Downloads/Legitimate/exe/'
+directory_path = '/media/nimna/New Volume1/Malware/exe/'
 
 # Loop through all the files in the directory
 for filename in os.listdir(directory_path):
