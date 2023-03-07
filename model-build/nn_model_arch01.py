@@ -137,4 +137,9 @@ plt.ylabel('Loss')
 plt.xlabel('Epoch')
 plt.legend(['train', 'val'], loc='upper left')
 plt.show()
+
+
+# save the model
+neuralModelOne.save('nn_model.h5')
+
 ## ---------- ##
