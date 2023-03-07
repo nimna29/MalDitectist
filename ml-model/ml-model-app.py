@@ -8,9 +8,11 @@ import numpy as np
 import joblib
 import os
 import math
+import tensorflow.keras.models as models
 
-# Load the trained ml model
+# Load the trained ml models
 rf_model = joblib.load('rf_model.joblib')
+nn_model = models.load_model('nn_model.h5')
 
 # Load the StandardScaler object used to scale the training data
 scaler = joblib.load('scaler.joblib')
@@ -82,6 +84,12 @@ def extract_features(file_path):
         print(f"Error message: {str(e)}")
         return None
 
+
+# Define the Predic funtion for NN Model
+def predic_nn_model_fn(model, input_data):
+    return model(input_data)
+
+
 # Define a function to classify the given file using the trained model
 def classify_file(file_path):
     # Extract features from the file
@@ -90,24 +98,58 @@ def classify_file(file_path):
         # Scale the features using the same StandardScaler object used to scale the training data
         scaled_features = scaler.transform(file_features.values)
         
-        # Make predictions using the trained model
-        prediction = rf_model.predict(scaled_features)
+        # Make predictions using the trained model - RF Model
+        rf_prediction = rf_model.predict(scaled_features)
         proba = rf_model.predict_proba(scaled_features)
-        print(f"Prediction: {prediction} ")
-        print(f"Prediction Probability: {proba[0][1]:.2f}.")
         
-        if prediction[0] == 1 and proba[0][1] >= 0.90:
-            print(f"{file_path} is predicted as Malware.")
-            print(f"Probability Rate: {proba[0][1]*100:.2f}%.")
+        # Make predictions using the trained model - NN Model
+        nn_prediction = predic_nn_model_fn(nn_model, scaled_features)
+        
+        
+        if rf_prediction[0] == 1 and proba[0][1] >= 0.80:
+            if nn_prediction[0] >= 0.7:
+                print(f"{file_path} is predicted as Malware.")
+                print(f"\nProbability Rate of RF Model: {proba[0][1]*100:.2f}%")
+                print(f"Prediction of NN Model: {nn_prediction} ")
+                
+            else:
+                print(f"{file_path} could be a Malware or Legitimate.\
+                      \nModels are unable to verify that.\nMostly this is a Malware file.")
+                print(f"\nProbability Rate of RF Model: {proba[0][1]*100:.2f}%")
+                print(f"Prediction of NN Model: {nn_prediction} ")
+                
         else:
-            print(f"{file_path} is predicted as Legitimate.")
-            print(f"Probability Rate: {proba[0][1]*100:.2f}%.")
+            if nn_prediction[0] >= 0.95 and proba[0][1] >= 0.75:
+                print(f"{file_path} could be a Malware or Legitimate.\
+                      \nModels are unable to verify that.\nMostly this is a Malware file.")
+                print(f"\nProbability Rate of RF Model: {proba[0][1]*100:.2f}%")
+                print(f"Prediction of NN Model: {nn_prediction} ")
+                
+            else:
+                print(f"{file_path} is predicted as Legitimate.")
+                print(f"\nProbability Rate of RF Model: {proba[0][1]*100:.2f}%")
+                print(f"Prediction of NN Model: {nn_prediction} ")
+                
     else:
         print(f"Could not extract features for file: {file_path}")
+
 
 # Call the classify_file function with the file path for analysis
 # file_path = '/media/nimna/New Volume1/Malware_Dataset/202275'
 
-# file_path = '/home/nimna/Downloads/Malware/'
-file_path = '/home/nimna/Downloads/Legitimage/Notion Setup 2.0.41.exe'
-classify_file(file_path)
+# # file_path = '/home/nimna/Downloads/Malware/exe/winner-summer-tennis-edward.exe'
+# file_path = '/home/nimna/Downloads/Legitimage/WhatsAppSetup.exe'
+# classify_file(file_path)
+
+
+# Set the directory path
+# directory_path = '/home/nimna/Downloads/Legitimage/exe/'
+directory_path = '/home/nimna/Downloads/Malware/exe/'
+
+# Loop through all the files in the directory
+for filename in os.listdir(directory_path):
+    # Get the full path of the file
+    file_path = os.path.join(directory_path, filename)
+    # Call the classify_file function with the file path for analysis
+    classify_file(file_path)
+
