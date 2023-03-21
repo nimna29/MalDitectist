@@ -140,19 +140,19 @@ def classify_file(file_path):
 # Call the classify_file function with the file path for analysis
 # file_path = '/media/nimna/New Volume1/Malware_Dataset/202275'
 
-# # file_path = '/home/nimna/Downloads/Malware/exe/winner-summer-tennis-edward.exe'
-# file_path = '/home/nimna/Downloads/Legitimate/WhatsAppSetup.exe'
-# classify_file(file_path)
+# file_path = '/media/nimna/New Volume1/Malware/exe/alaska-hot-carpet-king.exe'
+file_path = '/home/nimna/Downloads/Legitimate/exe/VSCodeUserSetup-x64-1.58.2.exe'
+classify_file(file_path)
 
 
-# Set the directory path
-# directory_path = '/home/nimna/Downloads/Legitimate/exe/'
-directory_path = '/media/nimna/New Volume1/Malware/exe/'
+# # Set the directory path
+# # directory_path = '/home/nimna/Downloads/Legitimate/exe/'
+# directory_path = '/media/nimna/New Volume1/Malware/exe/'
 
-# Loop through all the files in the directory
-for filename in os.listdir(directory_path):
-    # Get the full path of the file
-    file_path = os.path.join(directory_path, filename)
-    # Call the classify_file function with the file path for analysis
-    classify_file(file_path)
+# # Loop through all the files in the directory
+# for filename in os.listdir(directory_path):
+#     # Get the full path of the file
+#     file_path = os.path.join(directory_path, filename)
+#     # Call the classify_file function with the file path for analysis
+#     classify_file(file_path)
 
