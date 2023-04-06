@@ -99,4 +99,9 @@ ax2.set_title("CM (Normalized)")
 plt.suptitle("Confustion Matrices - Random Forest")
 plt.subplots_adjust(wspace=0.6)
 plt.show()
+
+# Save ML Model
+# from joblib import dump
+
+# dump(randomModel, 'rf_model.joblib')
 ## ---------- ##
