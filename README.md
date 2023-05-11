@@ -1,4 +1,4 @@
-# MalDitectist
+# MalDitectist - Model Development
 ## AI and Machine Learning-based Malware  Detection
 #### Development Of This Repository - Dataset Creation / Preprocessing / Model Building & Testing / Evaluation
 <br>
