@@ -6,3 +6,7 @@
 
 ### `Preprocessed Dataset`
 Access the Preprocessed Dataset: [Google Drive Link](https://drive.google.com/file/d/1Qa5k8MU2SnePKsMvDHiKTQepzJ41G5El/view?usp=sharing)
+
+
+### `License`
+This project is licensed under the MIT License. See [LICENSE](https://github.com/nimna29/MalDitectist/blob/main/LICENSE) for more details.
