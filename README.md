@@ -1,6 +1,6 @@
 # MalDitectist - Model Development
 ## An Ensemble Approach for Malware Detection using Machine Learning and Deep Learning
-### Development Of This Repository - Dataset Creation / Preprocessing / Model Building & Testing / Evaluation
+#### Development Of This Repository - Dataset Creation / Preprocessing / Model Building & Testing / Evaluation
 <hr>
 This project focuses on building reliable and efficient malware detection models using Machine Learning and Deep Learning techniques to improve current detection methods. By exploring several model types, including regression, classification, and neural networks, the aim is to identify the best-performing models for detecting malware accurately.
 
